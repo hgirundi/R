@@ -2,7 +2,7 @@ Tutorial I've made using some textmining tools provided by RPackages. Feel free 
 
 Lets get started:
 
------You'll need to install the following libraries
+----You'll need to install the following libraries:
 
 "tm"  # for text mining
 "SnowballC" # for text stemming
