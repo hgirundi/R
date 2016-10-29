@@ -1,4 +1,4 @@
-Tutorial I've made using some textmining tools provided by RPackages. Feel free to ask me anything if you need.
+Tutorial I've made using some text mining tools provided by RPackages. Feel free to ask me anything if you need.
 
 Lets get started:
 
@@ -62,7 +62,13 @@ docs <- tm_map(docs, stripWhitespace)
 dtm <- TermDocumentMatrix(docs) #Table containing the frequency of the words. 
 m <- as.matrix(dtm) #Setting the matrix into a variable (m).
 v <- sort(rowSums(m),decreasing=TRUE) #Sorting the rowSums in decreasing order.
-d <- data.frame(word = names(v),freq=v) #Generating the word cloud
+d <- data.frame(word = names(v),freq=v) 
 
 ----You can check the frequency of words using the following command:
 head(d, 10) # List the top ten words according to frequency.
+
+----Generating the wordcloud:
+set.seed(1234)
+wordcloud(words = d$word, freq = d$freq, min.freq = 1,
+max.words=100, random.order=FALSE, rot.per=0.35, #In max.words you can set the number of word that will be displayed in the wordcloud.
+colors=brewer.pal(1, "Dark2"))
