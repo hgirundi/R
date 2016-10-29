@@ -1,0 +1,68 @@
+Tutorial I've made using some textmining tools provided by RPackages. Feel free to ask me anything if you need.
+
+Lets get started:
+
+-----You'll need to install the following libraries
+
+"tm"  # for text mining
+"SnowballC" # for text stemming
+"wordcloud" # to generate the word-cloud 
+"RColorBrewer" # color palettes
+
+----Installing the libraries
+
+just copy and paste the commands in RStudio:
+
+install.packages("tm")  # for text mining
+install.package("SnowballC") # for text stemming
+install.packages("wordcloud") # word-cloud generator 
+install.packages("RColorBrewer") # color palettes
+
+----Loading the libraries in R using the following code:
+
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+
+----Set a file to a variable (I'm using a .txt file).
+filePath <- "example.txt"
+
+----Read the Lines
+text <- readLines(filePath)
+
+----Set the text to a corpus (body)
+docs <- Corpus(VectorSource(text))
+
+----Now that you have a corpus, you can start to "clean" your data using content_transformer from tm package to remove whitespaces, punctuation, etc.
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+
+----You can also convert the text to lower case:
+docs <- tm_map(docs, content_transformer(tolower))
+
+----Remove numbers
+docs <- tm_map(docs, removeNumbers)
+
+----Remove english common stopwords:
+docs <- tm_map(docs, removeWords, stopwords("English") 
+
+----You can also specify your stopwords as a character vector:
+docs <- tm_map(docs, removeWords, c("the", "so", "as")) 
+
+----Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+
+----Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+
+----Generating the wordcloud
+dtm <- TermDocumentMatrix(docs) #Table containing the frequency of the words. 
+m <- as.matrix(dtm) #Setting the matrix into a variable (m).
+v <- sort(rowSums(m),decreasing=TRUE) #Sorting the rowSums in decreasing order.
+d <- data.frame(word = names(v),freq=v) #Generating the word cloud
+
+----You can check the frequency of words using the following command:
+head(d, 10) # List the top ten words according to frequency.
