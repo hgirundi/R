@@ -1,13 +1,11 @@
 
 #First you'll need to install the following libraries:
-
 "tm"  # for text mining
 "SnowballC" # for text stemming
 "wordcloud" # to generate the word-cloud 
 "RColorBrewer" # color palettes
 
 #Installing the libraries
-
 just copy and paste the commands in RStudio:
 
 install.packages("tm")  # for text mining
@@ -16,7 +14,6 @@ install.packages("wordcloud") # word-cloud generator
 install.packages("RColorBrewer") # color palettes
 
 #Loading the libraries in R using the following code:
-
 library("tm")
 library("SnowballC")
 library("wordcloud")
@@ -28,7 +25,7 @@ filePath <- "example.txt"
 #Read the Lines
 text <- readLines(filePath)
 
-----Set the text to a corpus (body)
+#Set the text to a corpus (body)
 docs <- Corpus(VectorSource(text))
 
 #Now that you have a corpus, you can start to "clean" your data using content_transformer from tm package to remove whitespaces, punctuation, etc.
